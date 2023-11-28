@@ -12,6 +12,7 @@ import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -70,7 +71,7 @@ public class GoogleSteps {
     }
 
     @Then("I should see search results page")
-    public void clickSearch() throws IOException {
+    public void clickSearch() throws IOException, JSONException {
         Uninterruptibles.sleepUninterruptibly(Duration.ofSeconds(4));
         Assert.assertTrue(this.googlePage.isAt());
 

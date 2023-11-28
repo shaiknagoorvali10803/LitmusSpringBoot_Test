@@ -3,6 +3,7 @@ package com.csx.test.util;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.*;
 
 @Component
 public class JsonUtils {
-    public static List<Object> parseObject(JSONObject json, String key) {
+    public static List<Object> parseObject(JSONObject json, String key) throws JSONException {
         List<Object> jsonValues = new ArrayList<>();
         getKey(json, key, jsonValues);
         return jsonValues;
@@ -42,7 +43,7 @@ public class JsonUtils {
     }
 
 
-    public static void getKey(JSONObject json, String key, List<Object> values) {
+    public static void getKey(JSONObject json, String key, List<Object> values) throws JSONException {
         boolean exists = json.has(key);
         Iterator<?> keys;
         String nextKeys;
