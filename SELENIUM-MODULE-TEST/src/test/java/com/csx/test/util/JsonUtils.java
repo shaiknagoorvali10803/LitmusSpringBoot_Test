@@ -13,28 +13,44 @@ import java.util.*;
 
 @Component
 public class JsonUtils {
+
+    /**
+     * -----get the List of values for a given key from JsonObject  ---------
+     */
     public static List<Object> parseObject(JSONObject json, String key) throws JSONException {
         List<Object> jsonValues = new ArrayList<>();
         getKey(json, key, jsonValues);
         return jsonValues;
     }
 
-    public void CreateJsonFromMap(Map<Object,Object> data,String fileName) throws IOException, IOException {
+    /**
+     * -----Create a JsonObject and write to File from given Map  ---------
+     * FileName should contain path including file extention
+     */
+    public String CreateJsonFromMap(Map<Object,Object> data,String fileName) throws IOException, IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File jsonfile = new File("JsonFiles\\"+ fileName + ".json");
+        File jsonfile = new File(fileName);
         String jsonArrayAsString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(data);
-        System.out.println(jsonArrayAsString);
         objectMapper.writeValue(jsonfile, data);
+        return jsonArrayAsString;
     }
 
+    /**
+     * -----Read the Json Data from a file  ---------
+     * FileName should contain path including file extention
+     */
     public Map<String, String> readJsonFromFile(String fileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File jsonfile = new File("JsonFiles\\"+ fileName + ".json");
+        File jsonfile = new File(fileName);
         Map<String, String> dataRead = objectMapper.readValue(jsonfile, new TypeReference<Map<String, String>>() {
         });
         return dataRead;
     }
 
+    /**
+     * -----Read the Json Data from a JsonString  ---------
+     *
+     */
     public Map<String, Object> readJsonFromFromString(String jsonString) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> dataRead = objectMapper.readValue(jsonString,new TypeReference<Map<String, Object>>() {
